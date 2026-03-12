@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ご利用ガイド — みんなのLP屋さん</title>
+<meta name="description" content="みんなのLP屋さんのご利用ガイド・対応範囲です。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700;900&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #FDF6E3;
+  --brown: #3D2B1F;
+  --brown-mid: #5C4033;
+  --amber: #F5A623;
+  --kraft: #E8D5B0;
+  --muted: #8C7060;
+  --green: #4A7C59;
+  --red: #D04E4E;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--cream);
+  color: var(--brown);
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 16px;
+  line-height: 1.9;
+  -webkit-font-smoothing: antialiased;
+}
+.header {
+  background: var(--kraft);
+  padding: 24px;
+  text-align: center;
+}
+.header a {
+  color: var(--brown);
+  text-decoration: none;
+  font-weight: 900;
+  font-size: 1.1rem;
+}
+.header a span { color: var(--amber); }
+.content {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+h1 {
+  font-size: 1.6rem;
+  font-weight: 900;
+  margin-bottom: 32px;
+  text-align: center;
+}
+h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-top: 40px;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--amber);
+}
+h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+p, li {
+  margin-bottom: 12px;
+  color: var(--brown-mid);
+}
+ul, ol {
+  padding-left: 24px;
+}
+.tag-free {
+  display: inline-block;
+  background: var(--green);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-right: 4px;
+}
+.tag-paid {
+  display: inline-block;
+  background: var(--amber);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-right: 4px;
+}
+.tag-out {
+  display: inline-block;
+  background: var(--red);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-right: 4px;
+}
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  margin: 16px 0;
+}
+.notice {
+  background: rgba(245,166,35,0.1);
+  border-left: 4px solid var(--amber);
+  padding: 16px 20px;
+  margin: 16px 0;
+  border-radius: 0 8px 8px 0;
+  font-size: 0.92rem;
+}
+.step-list { counter-reset: step; list-style: none; padding-left: 0; }
+.step-list li {
+  counter-increment: step;
+  padding-left: 40px;
+  position: relative;
+  margin-bottom: 20px;
+}
+.step-list li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 2px;
+  width: 28px;
+  height: 28px;
+  background: var(--amber);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.footer {
+  background: var(--brown);
+  color: var(--muted);
+  padding: 32px 24px;
+  text-align: center;
+  font-size: 0.82rem;
+}
+.footer a { color: var(--muted); text-decoration: none; }
+.footer a:hover { color: var(--cream); }
+.footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 12px; flex-wrap: wrap; }
+.footer-copy { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a href="/">みんなの<span>LP</span>屋さん</a>
+</div>
+
+<div class="content">
+  <h1>ご利用ガイド</h1>
+
+  <h2>LINEでの修正依頼の仕方</h2>
+  <ol class="step-list">
+    <li><strong>LINEでメッセージを送る</strong><br>修正したい内容をそのままLINEで送ってください。テキストで指示するだけでOKです。</li>
+    <li><strong>AIが自動で修正</strong><br>担当の職人（AI）がメッセージを受け取り、LPを修正します。</li>
+    <li><strong>反映を確認</strong><br>標準プラン：数分以内に本番に反映されます。<br>上位プラン：ステージングに反映 → 翌営業日9:00に本番反映。</li>
+  </ol>
+
+  <div class="notice">
+    <strong>ポイント</strong>：具体的に指示するほど、正確に修正できます。<br>
+    例：「ヘッダーの電話番号を 03-1234-5678 に変更して」「メインの画像をもっと明るい感じにして」
+  </div>
+
+  <h2>対応範囲</h2>
+
+  <h3><span class="tag-free">無料・無制限</span> いつでも何度でもOK</h3>
+  <div class="card">
+    <ul>
+      <li>テキストの変更・追記・削除</li>
+      <li>画像の差し替え（素材をLINEで送ってください）</li>
+      <li>画像素材がない場合のAI生成画像による代替</li>
+      <li>AIによるコピーライティング（文章の生成・改善）</li>
+      <li>色・フォント・レイアウトの調整</li>
+      <li>CTAボタンの文言・リンク・色の変更</li>
+      <li>SEO基本設定（メタタグ・OGP）</li>
+      <li>トラッキングタグの設置（GTM・GA4・Meta Pixel等）</li>
+      <li>価格・日付・連絡先等の情報更新</li>
+      <li>新規セクションの追加</li>
+    </ul>
+  </div>
+
+  <h3><span class="tag-free">月1件無料</span> 人的サポート</h3>
+  <div class="card">
+    <p>AIでは対応が難しい内容は、スタッフが対応します。</p>
+    <ul>
+      <li>月1件まで無料（毎月1日リセット）</li>
+      <li>月2件目以降は &yen;5,000/件（税抜）</li>
+    </ul>
+    <p>LINEのリッチメニューから「人に相談したい」をタップしてください。</p>
+  </div>
+
+  <h3><span class="tag-paid">別途料金</span> オプション</h3>
+  <div class="card">
+    <ul>
+      <li>2本目以降のLP制作（初期費用＋月額追加）</li>
+      <li>多言語対応（&yen;50,000〜/初期、&yen;5,000〜/月）</li>
+      <li>SEOカスタム設定（構造化データ等）</li>
+      <li>アナリティクス自動レポート（+&yen;5,000/月）</li>
+    </ul>
+  </div>
+
+  <h3><span class="tag-out">対応範囲外</span></h3>
+  <div class="card">
+    <ul>
+      <li>新規ページの追加・マルチページサイト管理</li>
+      <li>EC機能（カート・決済・在庫管理）</li>
+      <li>会員登録・ログイン機能</li>
+      <li>外部システムとのAPI連携開発</li>
+      <li>動画・音声コンテンツの制作・編集</li>
+      <li>WordPress等CMSへの移行・構築</li>
+      <li>ドメイン・サーバーの移管作業</li>
+      <li>メールアドレスの発行・管理</li>
+    </ul>
+    <p>上記のご要望がある場合は、別途お見積もりも可能です。お気軽にご相談ください。</p>
+  </div>
+
+  <h2>プランの違い</h2>
+  <div class="card">
+    <table style="width:100%; border-collapse:collapse; font-size:0.9rem;">
+      <thead>
+        <tr style="background:var(--kraft);">
+          <th style="padding:10px 12px; border:1px solid rgba(61,43,31,0.15); text-align:left;"></th>
+          <th style="padding:10px 12px; border:1px solid rgba(61,43,31,0.15); text-align:center;">標準プラン</th>
+          <th style="padding:10px 12px; border:1px solid rgba(61,43,31,0.15); text-align:center;">上位プラン</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:10px 12px; border:1px solid rgba(61,43,31,0.15); background:#fff;">月額（税抜）</td>
+          <td style="padding:10px 12px; border:1px solid rgba(61,43,31,0.15); background:#fff; text-align:center;">&yen;10,000</td>
+          <td style="padding:10px 12px; border:1px solid rgba(61,43,31,0.15); background:#fff; text-align:center;">&yen;30,000</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px; border:1px solid rgba(61,43,31,0.15); background:#fff;">修正の反映</td>
+          <td style="padding:10px 12px; border:1px solid rgba(61,43,31,0.15); background:#fff; text-align:center;">即時本番反映</td>
+          <td style="padding:10px 12px; border:1px solid rgba(61,43,31,0.15); background:#fff; text-align:center;">ステージング確認後<br>翌営業日9:00に本番反映</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px; border:1px solid rgba(61,43,31,0.15); background:#fff;">修正回数</td>
+          <td style="padding:10px 12px; border:1px solid rgba(61,43,31,0.15); background:#fff; text-align:center;" colspan="2">無制限</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>対応時間</h2>
+  <div class="card">
+    <p><strong>AI修正</strong>：24時間対応（即時〜数分で反映）</p>
+    <p><strong>人的サポート</strong>：月〜土 10:00〜15:00（JST）<br>※祝日・当社休業日を除く</p>
+  </div>
+
+  <h2>よくある質問</h2>
+
+  <h3>修正は何回でもできますか？</h3>
+  <p>はい、保守期間中は何度でもLINEで依頼できます。回数制限はありません。</p>
+
+  <h3>すぐ反映されますか？</h3>
+  <p>標準プランは数分以内に本番反映。上位プランは翌営業日9:00に反映します。</p>
+
+  <h3>画像を差し替えたいのですが、素材がありません。</h3>
+  <p>AIで画像を生成して代替することができます。「こんなイメージの画像にして」と指示してください。</p>
+
+  <h3>解約したらLPはどうなりますか？</h3>
+  <p>1年の契約期間を満了された場合、LPコード一式を無料でお渡しします。</p>
+
+  <h3>担当の職人を変えたいのですが。</h3>
+  <p>LINEのリッチメニューからいつでも変更できます。</p>
+</div>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="/">トップページ</a>
+    <a href="/terms.html">利用規約</a>
+    <a href="/privacy.html">プライバシーポリシー</a>
+    <a href="/tokushoho.html">特定商取引法に基づく表記</a>
+  </div>
+  <p class="footer-copy">&copy; 2026 みんなのLP屋さん</p>
+</footer>
+
+</body>
+</html>
