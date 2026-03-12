@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    { "source": "/thanks", "destination": "/thanks.html" },
+    { "source": "/terms", "destination": "/terms.html" },
+    { "source": "/privacy", "destination": "/privacy.html" },
+    { "source": "/tokushoho", "destination": "/tokushoho.html" }
+  ]
+}

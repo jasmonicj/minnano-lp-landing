@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>みんなのLP屋さん — LINEで一言、すぐ直る。</title>
+<meta name="description" content="LINEで修正依頼を送るだけでLPが即時反映。中小企業・個人事業主のためのLP制作・保守サービス。初期15万円＋月額1万円。">
+<meta property="og:title" content="みんなのLP屋さん — 気づいたら直ってます。">
+<meta property="og:description" content="LINEで一言送るだけ。LPの修正がすぐ反映されます。">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700;900&family=Shippori+Mincho:wght@700&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #FDF6E3;
+  --brown: #3D2B1F;
+  --brown-mid: #5C4033;
+  --amber: #F5A623;
+  --terra: #E8735A;
+  --green: #4A7C59;
+  --kraft: #E8D5B0;
+  --sky: #C9E4F0;
+  --muted: #8C7060;
+  --line: #06C755;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--cream);
+  color: var(--brown);
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 17px;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Utility ─── */
+.container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+.section-title {
+  font-size: 1.6rem;
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 48px;
+  line-height: 1.4;
+}
+@media (max-width: 768px) {
+  .section-title { font-size: 1.3rem; margin-bottom: 32px; }
+}
+
+/* ─── Fade-in animation ─── */
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── CTA Button ─── */
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--line);
+  color: #fff;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 16px 40px;
+  border-radius: 60px;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(6, 199, 85, 0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(6, 199, 85, 0.4);
+}
+.cta-btn svg { width: 24px; height: 24px; fill: #fff; }
+
+/* ════════════════════════════════════════
+   1. HERO
+   ════════════════════════════════════════ */
+.hero {
+  background: var(--kraft);
+  padding: 80px 24px 64px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(255,209,102,0.35) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 30% at 80% 100%, rgba(245,166,35,0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero-content { position: relative; z-index: 1; }
+.hero-logo { margin-bottom: 16px; }
+.hero-service-name {
+  font-size: 2.4rem;
+  font-weight: 900;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+.hero-service-name span { color: var(--terra); }
+.hero-service-sub {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.3em;
+  margin-bottom: 40px;
+}
+.hero-catch {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 2.4rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  margin-bottom: 16px;
+  color: var(--brown);
+}
+.hero-sub {
+  font-size: 1rem;
+  color: var(--brown-mid);
+  margin-bottom: 40px;
+}
+.hero-note {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 24px;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .hero { padding: 56px 20px 48px; }
+  .hero-service-name { font-size: 1.8rem; }
+  .hero-catch { font-size: 1.8rem; }
+}
+
+/* ════════════════════════════════════════
+   2. HOW IT WORKS
+   ════════════════════════════════════════ */
+.how-section {
+  background: #fff;
+  padding: 80px 24px;
+}
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+.step-card {
+  background: var(--cream);
+  border-radius: 16px;
+  padding: 40px 24px;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(61,43,31,0.06);
+}
+.step-icon { font-size: 2.8rem; margin-bottom: 16px; }
+.step-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--amber);
+  letter-spacing: 0.2em;
+  margin-bottom: 8px;
+}
+.step-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.step-desc {
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+@media (max-width: 768px) {
+  .steps { grid-template-columns: 1fr; gap: 20px; }
+  .how-section { padding: 56px 20px; }
+}
+
+/* ════════════════════════════════════════
+   3. COMPARISON
+   ════════════════════════════════════════ */
+.compare-section {
+  background: var(--kraft);
+  padding: 80px 24px;
+}
+.compare-table-wrap { overflow-x: auto; }
+.compare-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.92rem;
+}
+.compare-table th, .compare-table td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid rgba(61,43,31,0.1);
+  vertical-align: top;
+}
+.compare-table thead th {
+  background: var(--brown);
+  color: var(--cream);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+.compare-table thead th:first-child { border-radius: 12px 0 0 0; }
+.compare-table thead th:last-child { border-radius: 0 12px 0 0; }
+.compare-table tbody tr:last-child td { border-bottom: none; }
+.compare-table tbody td { background: #fff; }
+.compare-table tbody td:first-child {
+  font-weight: 700;
+  background: var(--cream);
+}
+.compare-table .highlight {
+  background: rgba(245,166,35,0.12) !important;
+  font-weight: 700;
+}
+.compare-table thead .highlight {
+  background: var(--amber) !important;
+  color: var(--brown) !important;
+}
+.compare-note {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 24px;
+}
+
+@media (max-width: 768px) {
+  .compare-section { padding: 56px 20px; }
+  .compare-table { font-size: 0.8rem; }
+  .compare-table th, .compare-table td { padding: 10px 10px; }
+}
+
+/* ════════════════════════════════════════
+   4. PRICING
+   ════════════════════════════════════════ */
+.pricing-section {
+  background: #fff;
+  padding: 80px 24px;
+}
+.pricing-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+.price-card {
+  background: var(--cream);
+  border-radius: 16px;
+  padding: 40px 32px;
+  box-shadow: 0 2px 12px rgba(61,43,31,0.06);
+}
+.price-card-title {
+  font-size: 1.2rem;
+  font-weight: 900;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.price-card-title .badge {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  background: var(--amber);
+  color: var(--brown);
+  padding: 2px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+}
+.price-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px dashed rgba(61,43,31,0.15);
+  font-size: 0.92rem;
+}
+.price-item:last-child { border-bottom: none; }
+.price-item .label { color: var(--muted); }
+.price-item .value {
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+}
+.price-total {
+  margin-top: 16px;
+  padding: 16px;
+  background: var(--kraft);
+  border-radius: 8px;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+.price-total .amount {
+  font-family: 'Space Mono', monospace;
+  font-size: 1.5rem;
+  color: var(--amber);
+}
+.price-includes {
+  margin-top: 16px;
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* Switch banner */
+.switch-banner {
+  background: var(--kraft);
+  border-radius: 16px;
+  padding: 32px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+.switch-banner-text { flex: 1; }
+.switch-banner-title {
+  font-size: 1.1rem;
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+.switch-banner-desc {
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.switch-banner .cta-btn { font-size: 0.92rem; padding: 12px 28px; }
+
+.pricing-note {
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+@media (max-width: 768px) {
+  .pricing-section { padding: 56px 20px; }
+  .pricing-cards { grid-template-columns: 1fr; }
+  .switch-banner { flex-direction: column; text-align: center; }
+}
+
+/* ════════════════════════════════════════
+   5. FAQ
+   ════════════════════════════════════════ */
+.faq-section {
+  background: var(--cream);
+  padding: 80px 24px;
+}
+.faq-list { max-width: 720px; margin: 0 auto; }
+.faq-item {
+  border-bottom: 1px solid rgba(61,43,31,0.12);
+}
+.faq-question {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 20px 0;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--brown);
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.faq-question::after {
+  content: '+';
+  font-family: 'Space Mono', monospace;
+  font-size: 1.4rem;
+  color: var(--amber);
+  flex-shrink: 0;
+  transition: transform 0.3s;
+}
+.faq-item.open .faq-question::after {
+  transform: rotate(45deg);
+}
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+.faq-answer-inner {
+  padding: 0 0 20px;
+  font-size: 0.92rem;
+  color: var(--brown-mid);
+  line-height: 1.8;
+}
+
+@media (max-width: 768px) {
+  .faq-section { padding: 56px 20px; }
+}
+
+/* ════════════════════════════════════════
+   6. FINAL CTA
+   ════════════════════════════════════════ */
+.final-cta {
+  background: var(--kraft);
+  padding: 80px 24px;
+  text-align: center;
+}
+.final-cta .section-title { margin-bottom: 12px; }
+.final-cta-sub {
+  font-size: 1rem;
+  color: var(--brown-mid);
+  margin-bottom: 32px;
+}
+.final-cta-note {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-top: 16px;
+}
+
+/* ════════════════════════════════════════
+   7. FOOTER
+   ════════════════════════════════════════ */
+.footer {
+  background: var(--brown);
+  color: var(--muted);
+  padding: 40px 24px;
+  text-align: center;
+}
+.footer-logo {
+  margin-bottom: 16px;
+}
+.footer-logo-text {
+  font-size: 1rem;
+  font-weight: 900;
+  color: var(--cream);
+}
+.footer-logo-text span { color: var(--amber); }
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.footer-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.82rem;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--cream); }
+.footer-copy {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+}
+</style>
+</head>
+<body>
+
+<!-- ════════ 1. HERO ════════ -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-logo">
+      <svg width="130" height="130" viewBox="0 0 130 130" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="みんなのLP屋さん工房ロゴ">
+        <circle cx="65" cy="65" r="62" fill="#E8F4F8" opacity="0.5"/>
+        <circle cx="100" cy="22" r="16" fill="#FFD166" opacity="0.25"/>
+        <circle cx="100" cy="22" r="10" fill="#FFD166" opacity="0.7"/>
+        <rect x="14" y="62" width="70" height="56" rx="4" fill="#7A5C4A"/>
+        <rect x="18" y="66" width="62" height="48" rx="3" fill="#5C4033"/>
+        <rect x="22" y="70" width="24" height="20" rx="2" fill="#C9E4F0"/>
+        <rect x="50" y="70" width="24" height="20" rx="2" fill="#C9E4F0"/>
+        <line x1="34" y1="70" x2="34" y2="90" stroke="#7A5C4A" stroke-width="1.5"/>
+        <line x1="22" y1="80" x2="46" y2="80" stroke="#7A5C4A" stroke-width="1.5"/>
+        <line x1="62" y1="70" x2="62" y2="90" stroke="#7A5C4A" stroke-width="1.5"/>
+        <line x1="50" y1="80" x2="74" y2="80" stroke="#7A5C4A" stroke-width="1.5"/>
+        <rect x="35" y="94" width="22" height="24" rx="3" fill="#3D2B1F"/>
+        <circle cx="54" cy="106" r="1.5" fill="#F5A623"/>
+        <path d="M8 64 L47 34 L86 64Z" fill="#F5A623"/>
+        <path d="M8 64 L47 34 L86 64Z" fill="#E8960D" opacity="0.2"/>
+        <rect x="58" y="40" width="10" height="22" rx="2" fill="#5C4033"/>
+        <rect x="30" y="88" width="32" height="8" rx="2" fill="#F5A623"/>
+        <text x="46" y="95" text-anchor="middle" font-family="sans-serif" font-size="4.5" font-weight="bold" fill="#3D2B1F">LP屋さん</text>
+        <circle cx="96" cy="88" r="6" fill="#FDF6E3"/>
+        <ellipse cx="96" cy="83" rx="7" ry="2.5" fill="#3D2B1F"/>
+        <path d="M93 83 L95.5 76 L98.5 83Z" fill="#3D2B1F"/>
+        <rect x="92" y="93" width="8" height="10" rx="3" fill="#4A7C59"/>
+        <rect x="93" y="94" width="6" height="8" rx="2" fill="#E8D5B0"/>
+        <line x1="94" y1="103" x2="92" y2="112" stroke="#3D2B1F" stroke-width="2" stroke-linecap="round"/>
+        <line x1="98" y1="103" x2="100" y2="112" stroke="#3D2B1F" stroke-width="2" stroke-linecap="round"/>
+        <line x1="92" y1="95" x2="86" y2="100" stroke="#FDF6E3" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="100" y1="95" x2="106" y2="91" stroke="#FDF6E3" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="106" y1="91" x2="112" y2="86" stroke="#7A5C4A" stroke-width="2" stroke-linecap="round"/>
+        <rect x="110" y="82" width="7" height="5" rx="1.5" fill="#3D2B1F" transform="rotate(-45 113 84)"/>
+        <rect x="82" y="110" width="36" height="4" rx="2" fill="#7A5C4A"/>
+        <line x1="86" y1="114" x2="86" y2="122" stroke="#7A5C4A" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="114" y1="114" x2="114" y2="122" stroke="#7A5C4A" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="108" cy="76" r="2" fill="#F5A623" opacity="0.8"/>
+        <circle cx="116" cy="82" r="1.5" fill="#FFD166" opacity="0.6"/>
+        <circle cx="104" cy="70" r="1" fill="#F5A623" opacity="0.5"/>
+        <rect x="8" y="118" width="114" height="6" rx="3" fill="#E8D5B0"/>
+        <path d="M14 118 Q16 112 18 118" stroke="#4A7C59" stroke-width="1.5" fill="none"/>
+        <path d="M24 118 Q26 113 28 118" stroke="#4A7C59" stroke-width="1.5" fill="none"/>
+      </svg>
+    </div>
+    <h1 class="hero-service-name">みんなの<span>LP</span>屋さん</h1>
+    <div class="hero-service-sub">MINNANO LP-YA SAN</div>
+    <p class="hero-catch">「気づいたら直ってます。」</p>
+    <p class="hero-sub">思ったその瞬間に、LINEで一言。それだけです。</p>
+    <a href="https://lin.ee/89T6DTw" class="cta-btn" role="button">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .348-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .349-.281.631-.63.631h-2.386a.63.63 0 0 1-.63-.63V8.108a.63.63 0 0 1 .63-.631h2.386c.349 0 .63.284.63.63 0 .349-.281.631-.63.631H17.61v1.125h1.755zm-3.855 3.016a.63.63 0 0 1-.631.631.628.628 0 0 1-.51-.262l-2.417-3.296v2.927a.63.63 0 0 1-1.26 0V8.108a.63.63 0 0 1 .631-.631c.2 0 .389.096.51.262l2.417 3.296V8.108a.63.63 0 0 1 1.26 0v4.771zm-5.741 0a.63.63 0 0 1-1.26 0V8.108a.63.63 0 0 1 1.26 0v4.771zm-2.527.631H4.856a.63.63 0 0 1-.63-.63V8.108a.63.63 0 0 1 1.26 0v4.14h1.856c.348 0 .63.283.63.63 0 .349-.282.632-.63.632zM12 1C5.926 1 1 5.02 1 9.963c0 4.404 3.903 8.1 9.178 8.802.357.077.844.237.967.543.11.28.072.717.035.999l-.156.94c-.047.285-.22 1.115.977.607 1.196-.508 6.453-3.802 8.806-6.505C22.535 13.42 23 11.794 23 9.963 23 5.02 18.074 1 12 1z"/></svg>
+      LINEで友達追加して始める
+    </a>
+    <p class="hero-note">※ 修正作業はAI（人工知能）が自動処理します。「職人」はサービスの演出上のキャラクター表現です。</p>
+  </div>
+</section>
+
+<!-- ════════ 2. HOW IT WORKS ════════ -->
+<section class="how-section" id="how">
+  <div class="container">
+    <h2 class="section-title fade-in">使い方は、たったの3ステップ</h2>
+    <div class="steps">
+      <div class="step-card fade-in">
+        <div class="step-icon">📱</div>
+        <div class="step-num">STEP 1</div>
+        <h3 class="step-title">LINEで友達追加</h3>
+        <p class="step-desc">ボタンを押すだけ。アカウント作成も不要です。</p>
+      </div>
+      <div class="step-card fade-in">
+        <div class="step-icon">💬</div>
+        <div class="step-num">STEP 2</div>
+        <h3 class="step-title">修正したい箇所をLINEで送る</h3>
+        <p class="step-desc">例：「ここのキャッチコピー変えて」</p>
+      </div>
+      <div class="step-card fade-in">
+        <div class="step-icon">✨</div>
+        <div class="step-num">STEP 3</div>
+        <h3 class="step-title">気づいたら直ってます</h3>
+        <p class="step-desc">ログイン不要。パソコン不要。おまかせで。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 3. COMPARISON ════════ -->
+<section class="compare-section" id="compare">
+  <div class="container">
+    <h2 class="section-title fade-in">自分でやるより速い。頼むより安い。</h2>
+    <div class="compare-table-wrap fade-in">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>制作会社に依頼</th>
+            <th>自分でツールを使う</th>
+            <th class="highlight">みんなのLP屋さん</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>初期費用</td>
+            <td>30〜100万円</td>
+            <td>0円</td>
+            <td class="highlight">15万円</td>
+          </tr>
+          <tr>
+            <td>月額</td>
+            <td>別途見積</td>
+            <td>数千円〜</td>
+            <td class="highlight">1万円</td>
+          </tr>
+          <tr>
+            <td>修正方法</td>
+            <td>メール・電話で依頼</td>
+            <td>自分でいじる</td>
+            <td class="highlight">LINEで一言</td>
+          </tr>
+          <tr>
+            <td>反映速度</td>
+            <td>数日〜1週間</td>
+            <td>すぐ（でも自分で）</td>
+            <td class="highlight">すぐ（おまかせで）</td>
+          </tr>
+          <tr>
+            <td>難しさ</td>
+            <td>発注が大変</td>
+            <td>ツールの習得が必要</td>
+            <td class="highlight">LINEだけ</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="compare-note fade-in">他社で作ったサイトからの乗り換えも対応しています。LINEでご相談ください。</p>
+  </div>
+</section>
+
+<!-- ════════ 4. PRICING ════════ -->
+<section class="pricing-section" id="pricing">
+  <div class="container">
+    <h2 class="section-title fade-in">総額、30万円を切ります。</h2>
+    <div class="pricing-cards fade-in">
+      <!-- Standard Plan -->
+      <div class="price-card">
+        <div class="price-card-title">標準プラン</div>
+        <div class="price-item">
+          <span class="label">初期構築</span>
+          <span class="value">&yen;150,000</span>
+        </div>
+        <div class="price-item">
+          <span class="label">月額保守</span>
+          <span class="value">&yen;10,000/月</span>
+        </div>
+        <div class="price-item">
+          <span class="label">最低契約</span>
+          <span class="value">1年</span>
+        </div>
+        <div class="price-total">
+          総額 <span class="amount">&yen;270,000</span><small>（税抜）</small>
+        </div>
+        <p class="price-includes">LP制作・ドメイン・ホスティング・LINE修正対応・即時反映</p>
+      </div>
+      <!-- Premium Plan -->
+      <div class="price-card">
+        <div class="price-card-title">上位プラン <span class="badge">STAGING</span></div>
+        <div class="price-item">
+          <span class="label">初期構築</span>
+          <span class="value">&yen;150,000</span>
+        </div>
+        <div class="price-item">
+          <span class="label">月額保守</span>
+          <span class="value">&yen;30,000/月</span>
+        </div>
+        <div class="price-item">
+          <span class="label">最低契約</span>
+          <span class="value">1年</span>
+        </div>
+        <div class="price-total">
+          総額 <span class="amount">&yen;510,000</span><small>（税抜）</small>
+        </div>
+        <p class="price-includes">標準プランの全て＋ステージング環境＋翌営業日9:00本番公開</p>
+      </div>
+    </div>
+
+    <!-- Switch Banner -->
+    <div class="switch-banner fade-in">
+      <div class="switch-banner-icon">
+        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="職人イラスト">
+          <circle cx="30" cy="26" r="8" fill="#FDF6E3"/>
+          <ellipse cx="30" cy="21" rx="9" ry="3" fill="#3D2B1F"/>
+          <path d="M27 21 L29.5 14 L32.5 21Z" fill="#3D2B1F"/>
+          <rect x="26" y="33" width="8" height="12" rx="3" fill="#4A7C59"/>
+          <rect x="27" y="34" width="6" height="10" rx="2" fill="#E8D5B0"/>
+          <line x1="26" y1="36" x2="20" y2="40" stroke="#FDF6E3" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="34" y1="36" x2="40" y2="32" stroke="#FDF6E3" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="40" y1="32" x2="46" y2="28" stroke="#7A5C4A" stroke-width="2" stroke-linecap="round"/>
+          <rect x="44" y="24" width="6" height="4" rx="1.5" fill="#3D2B1F" transform="rotate(-45 47 26)"/>
+        </svg>
+      </div>
+      <div class="switch-banner-text">
+        <h3 class="switch-banner-title">🔧 他社からの乗り換えも対応します</h3>
+        <p class="switch-banner-desc">今使っているサイトを見せていただければ、そのままこちらで作り直します。初期費用&yen;200,000。LINEでご相談ください。</p>
+        <a href="https://lin.ee/89T6DTw" class="cta-btn">乗り換えを相談する</a>
+      </div>
+    </div>
+
+    <p class="pricing-note fade-in">1年の契約満了後はLPコード一式を無料でお渡しします。他社への移行サポートは&yen;100,000。</p>
+  </div>
+</section>
+
+<!-- ════════ 5. FAQ ════════ -->
+<section class="faq-section" id="faq">
+  <div class="container">
+    <h2 class="section-title fade-in">よくあるご質問</h2>
+    <div class="faq-list fade-in">
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">どんなLPを作ってもらえますか？</button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">ヒアリングシートと素材（テキスト・画像）をご提供いただければ、あとはお任せください。ヒアリングシートをお送りしてから7日間で初期構築を完了します。コピーライティングや素材がない場合もご相談ください。</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">修正は何回でもできますか？</button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">月額保守期間中は何度でもLINEで修正依頼いただけます。テキスト・画像の差し替えから構成変更まで対応します。</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">ドメインは自分で用意しますか？</button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">私たちが代わりに取得・管理します。ご希望のドメインをお伝えください（高額ドメインは別途費用が発生する場合があります）。</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">すぐ反映されるって、本当ですか？</button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">標準プランはLINEで送っていただいた内容を数分以内に本番反映します。ステージング確認が必要な場合は上位プランをご検討ください。</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">解約したらLPはどうなりますか？</button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">1年の最低契約期間を満了された場合に限り、LPコード一式を無料でお渡しします。他のサービスへの移行サポートは&yen;100,000で承ります。</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">対応時間はいつですか？</button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">月〜土の10:00〜15:00です（祝日・当社休業日を除く）。それ以外の時間にいただいたご依頼は翌営業日に対応します。</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">社内で複数人からLINEで指示できますか？</button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">修正依頼はご登録いただいた1つのLINEアカウントから行っていただく仕様です。担当者が変わる場合はご連絡いただければ変更できます。</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">他社で作ったサイトから乗り換えできますか？</button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner">できます。現在のサイトのURLをLINEで送っていただければ、そのまま再現します。乗り換えの場合の初期費用は&yen;200,000（税抜）です。月額保守は&yen;10,000〜&yen;30,000/月（プランにより異なります）。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 6. FINAL CTA ════════ -->
+<section class="final-cta">
+  <div class="container">
+    <h2 class="section-title fade-in">まず、LINEで話しかけてみてください。</h2>
+    <p class="final-cta-sub fade-in">職人がお待ちしています。</p>
+    <div class="fade-in">
+      <a href="https://lin.ee/89T6DTw" class="cta-btn">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .348-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .349-.281.631-.63.631h-2.386a.63.63 0 0 1-.63-.63V8.108a.63.63 0 0 1 .63-.631h2.386c.349 0 .63.284.63.63 0 .349-.281.631-.63.631H17.61v1.125h1.755zm-3.855 3.016a.63.63 0 0 1-.631.631.628.628 0 0 1-.51-.262l-2.417-3.296v2.927a.63.63 0 0 1-1.26 0V8.108a.63.63 0 0 1 .631-.631c.2 0 .389.096.51.262l2.417 3.296V8.108a.63.63 0 0 1 1.26 0v4.771zm-5.741 0a.63.63 0 0 1-1.26 0V8.108a.63.63 0 0 1 1.26 0v4.771zm-2.527.631H4.856a.63.63 0 0 1-.63-.63V8.108a.63.63 0 0 1 1.26 0v4.14h1.856c.348 0 .63.283.63.63 0 .349-.282.632-.63.632zM12 1C5.926 1 1 5.02 1 9.963c0 4.404 3.903 8.1 9.178 8.802.357.077.844.237.967.543.11.28.072.717.035.999l-.156.94c-.047.285-.22 1.115.977.607 1.196-.508 6.453-3.802 8.806-6.505C22.535 13.42 23 11.794 23 9.963 23 5.02 18.074 1 12 1z"/></svg>
+        LINEで友達追加する
+      </a>
+    </div>
+    <p class="final-cta-note fade-in">まずはご相談だけでも大丈夫です</p>
+  </div>
+</section>
+
+<!-- ════════ 7. FOOTER ════════ -->
+<footer class="footer">
+  <div class="footer-logo">
+    <svg width="40" height="40" viewBox="0 0 130 130" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="みんなのLP屋さんロゴ">
+      <path d="M8 64 L47 34 L86 64Z" fill="#F5A623"/>
+      <rect x="14" y="62" width="70" height="56" rx="4" fill="#7A5C4A"/>
+      <rect x="22" y="70" width="24" height="20" rx="2" fill="#C9E4F0" opacity="0.6"/>
+      <rect x="50" y="70" width="24" height="20" rx="2" fill="#C9E4F0" opacity="0.6"/>
+      <circle cx="96" cy="88" r="6" fill="#FDF6E3"/>
+      <rect x="92" y="93" width="8" height="10" rx="3" fill="#4A7C59"/>
+    </svg>
+    <div class="footer-logo-text">みんなの<span>LP</span>屋さん</div>
+  </div>
+  <div class="footer-links">
+    <a href="/privacy.html">プライバシーポリシー</a>
+    <a href="/tokushoho.html">特定商取引法に基づく表記</a>
+    <a href="/terms.html">利用規約</a>
+  </div>
+  <p class="footer-copy">&copy; 2026 みんなのLP屋さん</p>
+</footer>
+
+<!-- ════════ JavaScript ════════ -->
+<script>
+// Intersection Observer for fade-in
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// FAQ accordion
+document.querySelectorAll('.faq-question').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.parentElement;
+    const answer = item.querySelector('.faq-answer');
+    const isOpen = item.classList.contains('open');
+
+    // Close all
+    document.querySelectorAll('.faq-item.open').forEach(openItem => {
+      openItem.classList.remove('open');
+      openItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+      openItem.querySelector('.faq-answer').style.maxHeight = '0';
+    });
+
+    // Open clicked (if was closed)
+    if (!isOpen) {
+      item.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
+  });
+});
+</script>
+</body>
+</html>
