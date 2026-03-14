@@ -2,117 +2,160 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>みんなのLP屋さん - LINEフローモック</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
-  background: #7494c0;
+  background: #8cabd9;
   font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
   display: flex;
   justify-content: center;
   min-height: 100vh;
+  -webkit-tap-highlight-color: transparent;
 }
 #app {
   width: 100%;
-  max-width: 420px;
-  background: #7494c0;
+  max-width: 414px;
+  background: #8cabd9;
   display: flex;
   flex-direction: column;
   height: 100vh;
+  height: 100dvh;
   position: relative;
 }
+/* LINE-style header */
 #header {
-  background: #4a6fa5;
+  background: #06C755;
   color: #fff;
-  padding: 12px 16px;
+  padding: 0;
+  flex-shrink: 0;
+  z-index: 10;
+}
+#header-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-shrink: 0;
-  z-index: 10;
+  padding: 10px 16px;
+  min-height: 48px;
 }
-#header h1 { font-size: 16px; font-weight: 600; }
+#header-top .back-arrow { font-size: 20px; cursor: pointer; padding: 4px; }
+#header-top h1 { font-size: 17px; font-weight: 600; flex: 1; text-align: center; }
 #reset-btn {
-  background: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.25);
   border: none;
   color: #fff;
-  padding: 6px 12px;
+  padding: 5px 10px;
   border-radius: 4px;
-  font-size: 12px;
+  font-size: 11px;
   cursor: pointer;
 }
-#reset-btn:hover { background: rgba(255,255,255,0.35); }
+#reset-btn:active { background: rgba(255,255,255,0.4); }
+/* Phase indicator (dev-only, sits below header) */
 #phase-indicator {
-  background: rgba(0,0,0,0.45);
+  background: rgba(0,0,0,0.5);
   color: #fff;
-  padding: 4px 12px;
-  font-size: 11px;
+  padding: 3px 12px;
+  font-size: 10px;
   text-align: center;
   flex-shrink: 0;
   z-index: 10;
+  font-family: monospace;
 }
+/* Chat area — LINE sky-blue wallpaper */
 #chat {
   flex: 1;
   overflow-y: auto;
-  padding: 12px 16px;
+  padding: 12px 14px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
   scroll-behavior: smooth;
+  background: #8cabd9;
 }
+/* Message rows */
 .msg-row {
   display: flex;
   align-items: flex-end;
-  gap: 8px;
-  animation: fadeIn 0.25s ease;
+  gap: 6px;
+  animation: fadeIn 0.2s ease;
+  max-width: 100%;
 }
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
+  from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
 }
 .msg-row.bot { justify-content: flex-start; }
 .msg-row.user { justify-content: flex-end; }
-.bubble {
-  max-width: 75%;
-  padding: 10px 14px;
-  border-radius: 18px;
-  font-size: 14px;
-  line-height: 1.6;
-  word-break: break-word;
-  white-space: pre-wrap;
-}
-.msg-row.bot .bubble {
-  background: #fff;
-  color: #333;
-  border-bottom-left-radius: 4px;
-}
-.msg-row.user .bubble {
-  background: #5cb85c;
-  color: #fff;
-  border-bottom-right-radius: 4px;
-}
+/* Bot icon — round avatar */
 .bot-icon {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background: #e8c94a;
+  background: linear-gradient(135deg, #06C755, #04a648);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: 18px;
   flex-shrink: 0;
   color: #fff;
   font-weight: bold;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
 }
-#quick-reply-area {
-  background: #f5f5f5;
-  border-top: 1px solid #ddd;
-  padding: 10px 12px;
+/* Bubbles — LINE-style */
+.bubble {
+  max-width: 72%;
+  padding: 10px 14px;
+  font-size: 14px;
+  line-height: 1.55;
+  word-break: break-word;
+  white-space: pre-wrap;
+  position: relative;
+}
+.msg-row.bot .bubble {
+  background: #fff;
+  color: #111;
+  border-radius: 0 18px 18px 18px;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.08);
+}
+.msg-row.user .bubble {
+  background: #06C755;
+  color: #fff;
+  border-radius: 18px 0 18px 18px;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+/* Timestamp next to bubble */
+.msg-time {
+  font-size: 10px;
+  color: rgba(0,0,0,0.35);
   flex-shrink: 0;
-  min-height: 56px;
+  align-self: flex-end;
+  margin-bottom: 2px;
+}
+.msg-row.user .msg-time { order: -1; }
+/* Read receipt */
+.read-mark {
+  font-size: 10px;
+  color: rgba(0,0,0,0.35);
+  align-self: flex-end;
+  margin-bottom: 2px;
+  order: -2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.2;
+}
+/* Quick Reply area — LINE-style bottom tray */
+#quick-reply-area {
+  background: rgba(255,255,255,0.95);
+  border-top: 1px solid rgba(0,0,0,0.08);
+  padding: 10px 8px;
+  flex-shrink: 0;
+  min-height: 52px;
   display: flex;
   align-items: center;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 #quick-reply-scroll {
   display: flex;
@@ -120,29 +163,31 @@ body {
   overflow-x: auto;
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
-  padding-bottom: 2px;
+  padding: 2px 4px;
   width: 100%;
+  scrollbar-width: none;
 }
-#quick-reply-scroll::-webkit-scrollbar { height: 3px; }
-#quick-reply-scroll::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+#quick-reply-scroll::-webkit-scrollbar { display: none; }
 .qr-btn {
   background: #fff;
-  border: 1.5px solid #5cb85c;
-  color: #5cb85c;
+  border: 1.5px solid #06C755;
+  color: #06C755;
   padding: 8px 16px;
   border-radius: 20px;
   font-size: 13px;
   cursor: pointer;
   flex-shrink: 0;
   font-weight: 500;
-  transition: all 0.15s;
+  transition: all 0.12s;
+  -webkit-tap-highlight-color: transparent;
 }
-.qr-btn:hover { background: #5cb85c; color: #fff; }
-.qr-btn.action { border-color: #e8833a; color: #e8833a; }
-.qr-btn.action:hover { background: #e8833a; color: #fff; }
-.typing-dots { display: flex; gap: 4px; padding: 12px 16px; }
+.qr-btn:active { background: #06C755; color: #fff; }
+.qr-btn.action { border-color: #ff9500; color: #ff9500; }
+.qr-btn.action:active { background: #ff9500; color: #fff; }
+/* Typing animation */
+.typing-dots { display: flex; gap: 5px; padding: 10px 14px; }
 .typing-dots span {
-  width: 8px; height: 8px; background: #999; border-radius: 50%;
+  width: 8px; height: 8px; background: #aaa; border-radius: 50%;
   animation: bounce 1.2s infinite;
 }
 .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
@@ -151,14 +196,33 @@ body {
   0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
   40% { transform: scale(1); opacity: 1; }
 }
+/* Date separator */
+.date-sep {
+  text-align: center;
+  padding: 8px 0;
+}
+.date-sep span {
+  background: rgba(0,0,0,0.15);
+  color: #fff;
+  font-size: 11px;
+  padding: 3px 12px;
+  border-radius: 12px;
+}
 .hidden { display: none !important; }
+/* Safe area for notched phones */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  #quick-reply-area { padding-bottom: calc(10px + env(safe-area-inset-bottom)); }
+}
 </style>
 </head>
 <body>
 <div id="app">
   <div id="header">
-    <h1>みんなのLP屋さん</h1>
-    <button id="reset-btn" onclick="resetFlow()">リセット</button>
+    <div id="header-top">
+      <span class="back-arrow">&lt;</span>
+      <h1>みんなのLP屋さん</h1>
+      <button id="reset-btn" onclick="resetFlow()">リセット</button>
+    </div>
   </div>
   <div id="phase-indicator">-</div>
   <div id="chat"></div>
@@ -169,11 +233,98 @@ body {
 
 <script>
 // ============================================================
-//  メッセージデータ（編集はここだけ）
+//  Tax helpers — mirrors lib/messages.ts withTax / formatYen
 // ============================================================
+function withTax(amount) { return Math.floor(amount * 1.1); }
+function formatYen(amount) { return `¥${amount.toLocaleString()}`; }
+function taxIncl(amount) { return formatYen(withTax(amount)); }
 
+// ============================================================
+//  Data — mirrors types/index.ts (all amounts TAX-EXCLUSIVE)
+// ============================================================
+const CONTRACT_PRICES = {
+  new:       { label: '初期構築費', amount: 150000 },
+  migration: { label: '載せ替え費', amount: 200000 },
+};
+
+const PLAN_MONTHLY = { standard: 10000, staging: 30000 };
+
+const AVAILABLE_OPTIONS = [
+  { key: 'multilingual',  label: '多言語対応',           initialAmount: 50000,  monthlyAmount: 5000 },
+  { key: 'analytics',     label: 'アナリティクスレポート', initialAmount: 0,      monthlyAmount: 5000 },
+  { key: 'seo_custom',    label: 'SEOカスタム設定',       initialAmount: 30000,  monthlyAmount: 0 },
+  { key: 'custom_domain', label: '独自ドメイン設定',      initialAmount: 10000,  monthlyAmount: 0 },
+  { key: 'additional_lp', label: 'LP追加',               initialAmount: 150000, monthlyAmount: 5000 },
+];
+
+const PERSONAS = [
+  { key: 'gen',    label: '👴 源さん' },
+  { key: 'sakura', label: '👩 サクラさん' },
+  { key: 'kota',   label: '🦦 コタ' },
+];
+
+const PERSONA_INTROS = {
+  gen:    'わしが源じゃ。\n無口じゃが、腕は確かじゃよ。\n困ったことがあれば何でも言え。',
+  sakura: 'サクラです！\nテキパキやりますよ。\n何でも気軽に言ってくださいね。',
+  kota:   'コタです！\nまだ見習いですが、一生懸命がんばります！\nよろしくお願いします！',
+};
+
+const HEARING_QUESTIONS = [
+  { field: 'clientName',    label: '事業者名',       q: '事業者名（会社名・屋号）を教えてください。\n\n例: 株式会社○○ / ○○サービス' },
+  { field: 'contactName',   label: '担当者名',       q: 'ご担当者のお名前を教えてください。' },
+  { field: 'industry',      label: '業種・事業内容', q: '業種・事業内容を教えてください。\n\n例: 渋谷のイタリアンレストラン / 横浜の訪問歯科クリニック / フリーランスのWebデザイナー' },
+  { field: 'target',        label: 'ターゲット',     q: 'LPのターゲット（集めたいお客様）を教えてください。\n\n例: 20〜30代のカップル、記念日利用 / 要介護の高齢者のご家族 / スタートアップの経営者' },
+  { field: 'strengths',     label: '強み・特徴',     q: 'サービスや商品の強み・特徴を教えてください。お客様に一番伝えたいことは何ですか？\n\n例: 自家製パスタと厳選ワインが自慢 / 最短即日対応・見積もり無料 / 10年の実績と98%の顧客満足度' },
+  { field: 'cta',           label: '期待するアクション', q: 'LPを見たお客様にどんな行動をとってほしいですか？\n\n例: 電話で予約してほしい / 無料相談フォームに申し込んでほしい / LINEで問い合わせてほしい' },
+  { field: 'brandMainColor', label: 'メインカラー',  q: 'ブランドカラー（メイン）を教えてください。\n\n特にない場合は「おまかせ」とお送りください。\n\n例: 青 / 赤 / #1a73e8', quickReplies: ['おまかせ'] },
+  { field: 'toneAndWorld',  label: '雰囲気・トーン', q: 'LPの雰囲気・トーンはどれが近いですか？', quickReplies: ['信頼感・安心', '親しみ・温かみ', 'スタイリッシュ', 'ポップ・元気', 'おまかせ'] },
+  { field: 'siteUrl',       label: '既存サイト',     q: '既存のサイトURL（ホームページやSNS）があれば教えてください。\n\nない場合は「なし」とお送りください。', quickReplies: ['なし'] },
+];
+
+const DUMMY_ANSWERS = {
+  clientName: 'トラットリア・ベッラ',
+  contactName: '佐藤一郎',
+  industry: '渋谷のイタリアンレストラン',
+  target: '20〜30代のカップル、記念日利用',
+  strengths: '自家製パスタと厳選ワインが自慢',
+  cta: '電話で予約してほしい',
+  brandMainColor: '赤系',
+  toneAndWorld: '親しみ・温かみ',
+  siteUrl: 'https://trattoria-bella.example.com',
+};
+
+const CONTENT_BLOCKS = [
+  { key: 'service',      label: 'サービス紹介',   q: 'サービスの内容を簡単に教えてください。メニューやプランがあれば、その名前と価格も教えてください。', dummy: 'ランチコース ¥2,500 / ディナーコース ¥5,000 / ワインペアリング ¥3,000' },
+  { key: 'features',     label: '選ばれる理由・強み', q: 'お客様に選ばれる理由を3つ挙げるとしたら何ですか？', dummy: '1. 自家製手打ちパスタ\n2. 厳選イタリアワイン50種\n3. 個室完備で記念日に最適' },
+  { key: 'flow',         label: 'ご利用の流れ',   q: 'お申し込みから利用開始までの流れを教えてください（ステップ数は自由です）。', dummy: '1. 電話予約 → 2. 来店 → 3. コース選択 → 4. お食事' },
+  { key: 'pricing',      label: '料金表',         q: '料金プランを教えてください（プラン名・価格・含まれる内容）。', dummy: 'ランチ ¥1,500〜 / ディナー ¥3,000〜 / コース ¥5,000〜' },
+  { key: 'testimonials', label: 'お客様の声',     q: 'お客様の声や口コミがあれば教えてください。なければ「AIで作成」とお送りください。', quickReplies: ['AIで作成'], dummy: '「記念日に利用しました。料理もサービスも最高でした！」（Y.S様・30代女性）' },
+  { key: 'faq',          label: 'よくある質問',   q: 'よくある質問を教えてください。なければ「AIで作成」とお送りください。', quickReplies: ['AIで作成'], dummy: 'Q. 予約は必要？→ A. ディナーは要予約\nQ. 駐車場は？→ A. 近隣コインパーキングあり' },
+  { key: 'results',      label: '実績・数字',     q: 'アピールしたい実績や数字はありますか？（例: 施術実績3,000件、顧客満足度98%）', dummy: '創業10年 / リピート率85% / 口コミ評価4.5' },
+  { key: 'staff',        label: 'スタッフ紹介',   q: '紹介したいスタッフの名前・役職・一言コメントを教えてください。', dummy: 'オーナーシェフ 佐藤一郎 / イタリア修行5年 / 地元食材にこだわり' },
+  { key: 'access',       label: 'アクセス・地図', q: '住所と最寄り駅（またはアクセス方法）を教えてください。', dummy: '渋谷区道玄坂1-2-3 渋谷駅徒歩5分' },
+  { key: 'gallery',      label: '写真ギャラリー', q: 'ギャラリーに載せたい写真の説明を教えてください（例: 店内写真、施術風景）。写真はあとからLINEで送れます。', quickReplies: ['おまかせ'], dummy: '店内の様子と料理の写真' },
+];
+
+// Industry presets — matches types/index.ts INDUSTRY_PRESETS
+const INDUSTRY_PRESETS = {
+  '飲食':           ['service', 'features', 'gallery', 'access', 'testimonials', 'faq'],
+  '医療・クリニック': ['service', 'features', 'staff', 'flow', 'access', 'faq'],
+  '美容・サロン':    ['service', 'pricing', 'staff', 'gallery', 'testimonials', 'access'],
+  '教育・スクール':  ['service', 'features', 'flow', 'pricing', 'testimonials', 'faq'],
+  'その他':         ['service', 'features', 'flow', 'testimonials', 'faq'],
+};
+
+const DUMMY_REVISIONS = [
+  'ヘッダーの色を赤にしてください',
+  '電話番号を03-1234-5678に変更してください',
+];
+
+// ============================================================
+//  MSG — matches lib/messages.ts exactly
+// ============================================================
 const MSG = {
-  // ── Phase 0: 友だち追加〜決済 ──
+  // Phase 0
   welcome: `はじめまして！みんなのLP屋さんです。
 
 ━━━━━━━━━━━━━━━━━━
@@ -195,223 +346,204 @@ const MSG = {
   見習いカワウソ。誠実・丁寧・ちまちま直す。`,
 
   selectPersona: '担当職人を選んでください',
-
-  personaGreeting: `わしが源じゃ。
-無口じゃが、腕は確かじゃよ。
-困ったことがあれば何でも言え。
-
-ヒアリング完了後、リッチメニューからいつでも担当職人を変更できます。`,
+  selectPersonaRetry: '以下から選んでください',
+  personaIntroSuffix: '\n\nヒアリング完了後、リッチメニューからいつでも担当職人を変更できます。',
 
   selectContract: '契約タイプを選んでください',
-  confirmContract: (label, amount) => `${label}：¥${amount.toLocaleString()}（税込） ですね。`,
+  selectContractRetry: '以下から選んでください',
+  confirmContract: (contractType) => {
+    const p = CONTRACT_PRICES[contractType];
+    return `${p.label}：${taxIncl(p.amount)}（税込） ですね。`;
+  },
 
   selectPlan: '保守プランを選んでください',
-  confirmPlan: (display) => `保守プラン：${display} ですね。`,
+  selectPlanRetry: '以下から選んでください',
+  confirmPlan: (plan) => {
+    const label = plan === 'standard'
+      ? `標準（${taxIncl(PLAN_MONTHLY.standard)}/月・税込）`
+      : `ステージングあり（${taxIncl(PLAN_MONTHLY.staging)}/月・税込）`;
+    return `保守プラン：${label} ですね。`;
+  },
 
   selectOptions: 'オプションを選んでください（複数選択可）\n\n選び終わったら「決定」をタップしてください。',
   optionAdded: (label) => `${label}を追加しました。`,
+  optionAlreadyAdded: (label) => `${label}は既に追加済みです。`,
   optionMore: '他にオプションはありますか？',
+  optionRetry: '以下から選んでください',
 
-  summary: (contractLabel, contractAmount, planLabel, optionLines, initialTotal, monthlyTotal) =>
-`ご注文内容をご確認ください。
+  orderSummary: (contractType, plan, selectedOptionKeys) => {
+    const cp = CONTRACT_PRICES[contractType];
+    const planLabel = plan === 'standard'
+      ? `標準（${taxIncl(PLAN_MONTHLY.standard)}/月）`
+      : `ステージングあり（${taxIncl(PLAN_MONTHLY.staging)}/月）`;
+    let initialTotal = cp.amount;
+    let monthlyTotal = PLAN_MONTHLY[plan];
+    let optionLines = '';
+    for (const optKey of selectedOptionKeys) {
+      const opt = AVAILABLE_OPTIONS.find(o => o.key === optKey);
+      if (opt) {
+        initialTotal += opt.initialAmount;
+        monthlyTotal += opt.monthlyAmount;
+        optionLines += `\n  ${opt.label}：初期 ${taxIncl(opt.initialAmount)} / 月額 ${taxIncl(opt.monthlyAmount)}`;
+      }
+    }
+    return `ご注文内容をご確認ください。
 
 ━━━━━━━━━━━━━━━━━━
 📦 お見積もり
 ━━━━━━━━━━━━━━━━━━
-${contractLabel}：¥${contractAmount.toLocaleString()}
+${cp.label}：${taxIncl(cp.amount)}
 保守プラン：${planLabel}${optionLines ? `\nオプション：${optionLines}` : ''}
 
 ━━━━━━━━━━━━━━━━━━
 💰 お支払い
-初回：¥${initialTotal.toLocaleString()}（税込）
-月額：¥${monthlyTotal.toLocaleString()}（税込）
-━━━━━━━━━━━━━━━━━━`,
+初回：${taxIncl(initialTotal)}（税込）
+月額：${taxIncl(monthlyTotal)}（税込）
+━━━━━━━━━━━━━━━━━━`;
+  },
 
-  termsLinks: `ご利用にあたり、以下の規約をご確認ください。
+  termsConfirmation: `ご利用にあたり、以下の規約をご確認ください。
 
 利用規約：https://minnano-lp.com/terms.html
 プライバシーポリシー：https://minnano-lp.com/privacy.html`,
 
-  termsConfirm: '上記の内容と利用規約・プライバシーポリシーに同意しますか？',
+  termsAgreePrompt: '上記の内容と利用規約・プライバシーポリシーに同意しますか？',
+  termsAgreeRetry: '以下から選んでください',
+  restart: '最初からやり直します。何かメッセージを送ってください。',
 
-  checkout: `ありがとうございます！
+  checkoutLink: `ありがとうございます！
 
 以下のリンクからお支払いをお願いいたします。
 https://checkout.stripe.com/pay/cs_xxx
 
 お支払い完了後、自動的にヒアリングシートをお送りいたします。`,
 
+  // Phase 1
   hearingStart: 'ヒアリングを開始します。',
+  hearingConfirmAnswer: (label, answer) => `${label}：${answer} ですね。`,
 
-  // ── Phase 1: 共通質問 ──
-  hearingConfirm: (label, value) => `${label}：${value} ですね。`,
+  // Phase 2
+  blockSelectionIntro: `ありがとうございます！
 
-  hearingSummary: (answers) =>
-`以下の内容でLP制作を進めてよろしいですか？
+次に、LPに載せたいセクションを選んでください。
+
+必須セクション（自動で含まれます）:
+- ヒーロー（メインビジュアル）
+- お問い合わせボタン
+- フッター
+
+以下から載せたいものを選んでください（複数選択可）。
+選び終わったら「決定」をタップしてください。
+業種に合わせたおすすめセットもあります。`,
+
+  blockSelectionStatus: (selectedLabels) =>
+    selectedLabels.length > 0
+      ? `現在の選択（${selectedLabels.length}件）:\n${selectedLabels.map(l => `- ${l}`).join('\n')}\n\n追加するセクションを選んでください。`
+      : 'LPに載せたいセクションを選んでください（複数選択可）。',
+
+  blockAdded: (label) => `${label}を追加しました。`,
+  blockRemoved: (label) => `${label}を外しました。`,
+  blockRetry: '以下から選んでください。',
+  blockPresetConfirm: (blockLabels) =>
+    `おまかせセットを選びました。\n\n${blockLabels.map(l => `- ${l}`).join('\n')}\n\nこの内容でよろしいですか？`,
+  blockBackToSelection: 'セクション選択に戻ります。',
+
+  // Phase 3
+  blockQuestionsIntro: (count) =>
+    `選んだセクションについて、もう少し詳しく教えてください。\n（${count}セクション分の質問があります）`,
+  blockQuestionConfirm: (blockLabel, answer) =>
+    `${blockLabel}：${answer} ですね。`,
+
+  // Phase 4
+  hearingSummary: (data, selectedBlocks, blockAnswers) => {
+    const blockLabels = selectedBlocks.map(k => {
+      const def = CONTENT_BLOCKS.find(b => b.key === k);
+      return def ? def.label : k;
+    });
+    let blockDetail = '';
+    if (blockAnswers && Object.keys(blockAnswers).length > 0) {
+      blockDetail = '\n\n【セクション詳細】\n' + Object.entries(blockAnswers).map(([k, v]) => {
+        const def = CONTENT_BLOCKS.find(b => b.key === k);
+        return `${def?.label || k}：${v}`;
+      }).join('\n');
+    }
+    return `以下の内容でLP制作を進めてよろしいですか？
 
 ━━━━━━━━━━━━━━━━━━
 📋 ヒアリング内容の確認
 ━━━━━━━━━━━━━━━━━━
-事業者名：${answers.clientName}
-担当者名：${answers.contactName}
-業種：${answers.industry}
-ターゲット：${answers.target}
-強み・特徴：${answers.strengths}
-期待するアクション：${answers.cta}
-メインカラー：${answers.brandMainColor}
-雰囲気・トーン：${answers.toneAndWorld}
-既存サイト：${answers.siteUrl}
+事業者名：${data.clientName || ''}
+担当者名：${data.contactName || ''}
+業種：${data.industry || ''}
+ターゲット：${data.target || ''}
+強み・特徴：${data.strengths || ''}
+期待するアクション：${data.cta || ''}
+メインカラー：${data.brandMainColor || ''}
+雰囲気・トーン：${data.toneAndWorld || ''}
+既存サイト：${data.siteUrl || 'なし'}
+
+【選択セクション】
+必須：ヒーロー、CTA、フッター
+選択：${blockLabels.length > 0 ? blockLabels.join('、') : 'なし'}${blockDetail}
 ━━━━━━━━━━━━━━━━━━
 
-よろしければ「OK」、最初からやり直す場合は「やり直す」をお送りください。`,
+よろしければ「OK」、最初からやり直す場合は「やり直す」をお送りください。`;
+  },
 
-  hearingRedo: 'はじめからお伺いします。',
+  hearingConfirmRetry: '上記の内容でよろしければ「OK」、最初からやり直す場合は「やり直す」をお送りください。',
+  hearingRestart: 'はじめからお伺いします。',
 
-  // ── Phase 2: ブロック選択 ──
-  selectBlocks: `LPに入れたいセクションを選んでください（複数選択可）。
-選び終わったら「決定」をタップしてください。
+  hearingAgreed: (deadline) =>
+    `ありがとうございます！上記の内容でLP制作を開始いたします。\n\n完成しましたらLINEでお知らせいたします。\n構築期限：${deadline} 23:59（JST）`,
 
-※ ヒーロー・お問い合わせボタン・フッターは自動で入ります。`,
+  lpCompleteForReview: (previewUrl) =>
+    `LPが完成しました！以下のURLからご確認ください。\n\n${previewUrl}\n\n内容をご確認の上、問題なければ「この内容でリリースする」とお送りください。\n修正がある場合はLINEでお伝えください。`,
 
-  blockAdded: (label) => `「${label}」を追加しました。他にありますか？`,
-  blockOmakase: (names) => `業種に合わせておすすめのセクションを選びました：\n${names}`,
-  blockEmpty: '1つ以上のセクションを選んでください。',
+  releaseStaffReview: 'ありがとうございます！リリース前にスタッフが最終確認を行います。\n確認完了後、本番に反映されます。しばらくお待ちください。',
 
-  // ── Phase 3: ブロック別追加質問 ──
-  blockAnswer: '承知しました！',
+  lpPublished: (url) =>
+    `LPを本番に公開しました！\n\n${url}\n\nこれ以降、LINEで修正依頼をお送りいただけます。\nよろしくお願いいたします。`,
 
-  // ── ヒアリング完了 ──
-  hearingComplete: (blockNames) =>
-`ありがとうございます！以下の構成でLP制作を開始いたします。
-
-━━━━━━━━━━━━━━━━━━
-📄 LPセクション構成
-━━━━━━━━━━━━━━━━━━
-  ・ヒーロー（自動）
-  ・${blockNames}
-  ・CTA（自動）
-  ・フッター（自動）
-━━━━━━━━━━━━━━━━━━
-
-完成しましたらLINEでお知らせいたします。
-構築期限：2026-03-21 23:59（JST）`,
-
-  // ── LP完成通知 ──
-  lpComplete: `LPが完成しました！以下のURLからご確認ください。
-
-https://trattoria-bella-lp.vercel.app
-
-テキスト・画像・レイアウト等の内容をご確認の上、リリースしてよろしければ「この内容でリリースする」をタップしてください。
-修正がある場合は修正内容をお送りください。`,
-
-  releaseConfirm: 'ありがとうございます！スタッフが最終確認を行います。確認完了後、LPを公開いたします。少々お待ちください。',
-
-  maintenanceStart: 'LPを公開しました！保守フェーズを開始します。修正があればいつでもLINEでお送りください。',
-
-  // ── 修正フロー ──
-  batchList: (items) => `📋 修正リスト（${items.length}件）
-
-${items.map((t, i) => `${i + 1}. ${t}`).join('\n')}
-
-他にも修正があれば続けてお送りください。
-全部揃ったら「以上」を押してください。`,
-
-  batchAccept: (count) => `承った。直しておこう。
-
-${count}件の修正をまとめて対応します。`,
-
-  batchDone: (count) => `できた。確認してみてくれ。
-
-${count}件の修正を反映しました。`,
-
+  // Revision
+  processing: '処理中です。完了までお待ちください。',
   batchCleared: '修正リストをクリアしました。',
+  batchList: (requests) => {
+    const listText = requests.map((r, i) => `${i + 1}. ${r}`).join('\n');
+    return `📋 修正リスト（${requests.length}件）\n\n${listText}\n\n他にも修正があれば続けてお送りください。\n全部揃ったら「以上」を押してください。`;
+  },
+  batchAccept: (personaLine, count) =>
+    `${personaLine}\n\n${count}件の修正をまとめて対応します。`,
+  batchCompleteStandard: (personaLine, count) =>
+    `${personaLine}\n\n${count}件の修正を反映しました。`,
 };
 
-// ── データ定義 ──
-
-const PERSONAS = [
-  { key: 'gen', label: '👴 源さん' },
-  { key: 'sakura', label: '👩 サクラさん' },
-  { key: 'kota', label: '🦦 コタ' },
-];
-
-const CONTRACT_TYPES = [
-  { key: 'new', label: '初期構築費', qrLabel: '新規LP制作 ¥165,000', amount: 165000 },
-  { key: 'migration', label: '載せ替え費', qrLabel: '載せ替え ¥200,000', amount: 200000 },
-];
-
-const PLANS = [
-  { key: 'standard', label: '標準（¥11,000/月・税込）', qrLabel: '標準 ¥11,000/月 税込', monthly: 11000 },
-  { key: 'staging', label: 'ステージングあり（¥33,000/月・税込）', qrLabel: 'ステージング ¥33,000 税込', monthly: 33000 },
-];
-
-const OPTIONS = [
-  { key: 'multilingual', label: '多言語対応', initialAmount: 50000, monthlyAmount: 5000 },
-  { key: 'analytics', label: 'アナリティクスレポート', initialAmount: 0, monthlyAmount: 5000 },
-  { key: 'seo_custom', label: 'SEOカスタム設定', initialAmount: 30000, monthlyAmount: 0 },
-  { key: 'custom_domain', label: '独自ドメイン設定', initialAmount: 10000, monthlyAmount: 0 },
-  { key: 'additional_lp', label: 'LP追加', initialAmount: 165000, monthlyAmount: 5000 },
-];
-
-const HEARING_QUESTIONS = [
-  { field: 'clientName', label: '事業者名', q: '事業者名（会社名・屋号）を教えてください。\n\n例: 株式会社○○ / ○○サービス' },
-  { field: 'contactName', label: '担当者名', q: 'ご担当者のお名前を教えてください。' },
-  { field: 'industry', label: '業種・事業内容', q: '業種・事業内容を教えてください。\n\n例: 渋谷のイタリアンレストラン / 横浜の訪問歯科クリニック / フリーランスのWebデザイナー' },
-  { field: 'target', label: 'ターゲット', q: 'LPのターゲット（集めたいお客様）を教えてください。\n\n例: 20〜30代のカップル、記念日利用 / 要介護の高齢者のご家族 / スタートアップの経営者' },
-  { field: 'strengths', label: '強み・特徴', q: 'サービスや商品の強み・特徴を教えてください。お客様に一番伝えたいことは何ですか？\n\n例: 自家製パスタと厳選ワインが自慢 / 最短即日対応・見積もり無料 / 10年の実績と98%の顧客満足度' },
-  { field: 'cta', label: '期待するアクション', q: 'LPを見たお客様にどんな行動をとってほしいですか？\n\n例: 電話で予約してほしい / 無料相談フォームに申し込んでほしい / LINEで問い合わせてほしい' },
-  { field: 'brandMainColor', label: 'メインカラー', q: 'ブランドカラー（メイン）を教えてください。\n\n特にない場合は「おまかせ」とお送りください。\n\n例: 青 / 赤 / #1a73e8', quickReplies: ['おまかせ'] },
-  { field: 'toneAndWorld', label: '雰囲気・トーン', q: 'LPの雰囲気・トーンはどれが近いですか？', quickReplies: ['信頼感・安心', '親しみ・温かみ', 'スタイリッシュ', 'ポップ・元気', 'おまかせ'] },
-  { field: 'siteUrl', label: '既存サイト', q: '既存のサイトURL（ホームページやSNS）があれば教えてください。\n\nない場合は「なし」とお送りください。', quickReplies: ['なし'] },
-];
-
-const DUMMY_ANSWERS = {
-  clientName: 'トラットリア・ベッラ',
-  contactName: '佐藤一郎',
-  industry: '渋谷のイタリアンレストラン',
-  target: '20〜30代のカップル、記念日利用',
-  strengths: '自家製パスタと厳選ワインが自慢',
-  cta: '電話で予約してほしい',
-  brandMainColor: '赤系',
-  toneAndWorld: '親しみ・温かみ',
-  siteUrl: 'https://trattoria-bella.example.com',
+// Persona accept/complete lines for batch messages
+const PERSONA_LINES = {
+  gen:    { accept: '承った。直しておこう。', complete: 'できた。確認してみてくれ。' },
+  sakura: { accept: 'はい、やっておきますね！', complete: 'できました！確認お願いします。' },
+  kota:   { accept: 'がんばって直します！', complete: 'できました…！見てみてください！' },
 };
 
-const CONTENT_BLOCKS = [
-  { key: 'service', label: 'サービス紹介', q: '主なサービス・商品を3つ程度教えてください。\n\n例: カット ¥5,000 / カラー ¥8,000 / パーマ ¥10,000', dummy: 'ランチコース ¥2,500 / ディナーコース ¥5,000 / ワインペアリング ¥3,000' },
-  { key: 'features', label: '3つの強み', q: '選ばれる理由・強みを3つ教えてください。\n\n例: 1.駅徒歩3分 2.完全個室 3.キッズスペース完備', dummy: '1. 自家製手打ちパスタ\n2. 厳選イタリアワイン50種\n3. 個室完備で記念日に最適' },
-  { key: 'flow', label: 'ご利用の流れ', q: 'お客様のご利用の流れを教えてください（3〜5ステップ程度）。\n\n例: お問い合わせ → 無料相談 → プラン決定 → 開始', dummy: '1. 電話予約 → 2. 来店 → 3. コース選択 → 4. お食事' },
-  { key: 'pricing', label: '料金プラン', q: '料金プランを教えてください。\n\n例: ベーシック ¥10,000/月 / スタンダード ¥20,000/月', dummy: 'ランチ ¥1,500〜 / ディナー ¥3,000〜 / コース ¥5,000〜' },
-  { key: 'testimonials', label: 'お客様の声', q: 'お客様の声を1〜3件教えてください。お名前（イニシャル可）と感想をセットでお願いします。\n\nまだない場合は「なし」を選んでください。', quickReplies: ['なし'], dummy: '「記念日に利用しました。料理もサービスも最高でした！」（Y.S様・30代女性）' },
-  { key: 'faq', label: 'よくある質問', q: 'よくある質問と回答を2〜5個教えてください。\n\n思いつかない場合は「おまかせ」を選んでください。', quickReplies: ['おまかせ'], dummy: 'Q. 予約は必要？→ A. ディナーは要予約\nQ. 駐車場は？→ A. 近隣コインパーキングあり' },
-  { key: 'results', label: '実績・数字', q: 'アピールしたい実績や数字を教えてください。\n\n例: 創業15年 / 施術実績3,000件 / 満足度98%', dummy: '創業10年 / リピート率85% / 口コミ評価4.5' },
-  { key: 'staff', label: 'スタッフ紹介', q: '紹介したい方のお名前・役職・一言プロフィールを教えてください。', dummy: 'オーナーシェフ 佐藤一郎 / イタリア修行5年 / 地元食材にこだわり' },
-  { key: 'access', label: 'アクセス・地図', q: '住所と最寄り駅（または目印）を教えてください。', dummy: '渋谷区道玄坂1-2-3 渋谷駅徒歩5分' },
-  { key: 'gallery', label: 'ギャラリー', q: 'どんな写真を載せたいですか？\n※ 写真はあとからLINEで送っていただけます。\n\n特になければ「おまかせ」を選んでください。', quickReplies: ['おまかせ'], dummy: '店内の様子と料理の写真' },
-];
-
-const OMAKASE_BLOCKS = ['service', 'pricing', 'gallery', 'access', 'testimonials'];
-
-const DUMMY_REVISIONS = [
-  'ヘッダーの色を赤にしてください',
-  '電話番号を03-1234-5678に変更してください',
-];
-
 // ============================================================
-//  フローエンジン（以下はメッセージに依存しないロジック）
+//  Flow Engine
 // ============================================================
-
 const chat = document.getElementById('chat');
 const qrScroll = document.getElementById('quick-reply-scroll');
 const phaseEl = document.getElementById('phase-indicator');
 
 let selectedOptions = [];
-let selectedBlocks = [];
+let selectedBlockKeys = [];
+let blockAnswers = {};
 let batchItems = [];
 let state = {};
 
 function setPhase(t) { phaseEl.textContent = t; }
 function scrollToBottom() { requestAnimationFrame(() => { chat.scrollTop = chat.scrollHeight; }); }
+
+function getNow() {
+  const d = new Date();
+  return `${d.getHours()}:${String(d.getMinutes()).padStart(2, '0')}`;
+}
 
 function addBot(text, delay) {
   return new Promise(resolve => {
@@ -424,12 +556,13 @@ function addBot(text, delay) {
       typing.remove();
       const row = document.createElement('div');
       row.className = 'msg-row bot';
-      row.innerHTML = '<div class="bot-icon">LP</div><div class="bubble"></div>';
+      const time = getNow();
+      row.innerHTML = `<div class="bot-icon">LP</div><div class="bubble"></div><span class="msg-time">${time}</span>`;
       row.querySelector('.bubble').textContent = text;
       chat.appendChild(row);
       scrollToBottom();
       resolve();
-    }, delay || 600);
+    }, delay || 500);
   });
 }
 
@@ -437,12 +570,24 @@ function addUser(text) {
   return new Promise(resolve => {
     const row = document.createElement('div');
     row.className = 'msg-row user';
-    row.innerHTML = '<div class="bubble"></div>';
+    const time = getNow();
+    row.innerHTML = `<span class="read-mark"><span>既読</span><span>${time}</span></span><div class="bubble"></div>`;
     row.querySelector('.bubble').textContent = text;
     chat.appendChild(row);
     scrollToBottom();
-    setTimeout(resolve, 200);
+    setTimeout(resolve, 150);
   });
+}
+
+function addDateSep() {
+  const d = new Date();
+  const months = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+  const days = ['日','月','火','水','木','金','土'];
+  const text = `${d.getFullYear()}/${months[d.getMonth()]}/${d.getDate()}(${days[d.getDay()]})`;
+  const el = document.createElement('div');
+  el.className = 'date-sep';
+  el.innerHTML = `<span>${text}</span>`;
+  chat.appendChild(el);
 }
 
 function clearQR() { qrScroll.innerHTML = ''; }
@@ -459,10 +604,11 @@ function showQR(buttons) {
   scrollToBottom();
 }
 
-// ── Phase 0: 友だち追加〜決済 ──
+// ── Phase 0 ──
 
 async function step_welcome() {
   setPhase('Phase 0: 友だち追加・ペルソナ選択');
+  addDateSep();
   await addBot(MSG.welcome);
   await addBot(MSG.selectPersona);
   showQR(PERSONAS.map(p => ({ label: p.label, handler: () => step_afterPersona(p) })));
@@ -471,36 +617,47 @@ async function step_welcome() {
 async function step_afterPersona(p) {
   await addUser(p.label);
   state.persona = p;
-  await addBot(MSG.personaGreeting);
+  const intro = PERSONA_INTROS[p.key] + MSG.personaIntroSuffix;
+  await addBot(intro);
   step_contract();
 }
 
 async function step_contract() {
   setPhase('Phase 0: 契約タイプ選択');
   await addBot(MSG.selectContract);
-  showQR(CONTRACT_TYPES.map(c => ({
-    label: c.qrLabel,
-    handler: async () => {
-      await addUser(c.qrLabel);
-      state.contract = c;
-      await addBot(MSG.confirmContract(c.label, c.amount));
-      step_plan();
-    },
-  })));
+  showQR([
+    { label: `新規LP制作 ${formatYen(CONTRACT_PRICES.new.amount)}（税抜）`, handler: () => selectContract('new') },
+    { label: `載せ替え ${formatYen(CONTRACT_PRICES.migration.amount)}（税抜）`, handler: () => selectContract('migration') },
+  ]);
+}
+
+async function selectContract(type) {
+  const qrLabel = type === 'new'
+    ? `新規LP制作 ${formatYen(CONTRACT_PRICES.new.amount)}（税抜）`
+    : `載せ替え ${formatYen(CONTRACT_PRICES.migration.amount)}（税抜）`;
+  await addUser(qrLabel);
+  state.contractType = type;
+  await addBot(MSG.confirmContract(type));
+  step_plan();
 }
 
 async function step_plan() {
   setPhase('Phase 0: プラン選択');
   await addBot(MSG.selectPlan);
-  showQR(PLANS.map(p => ({
-    label: p.qrLabel,
-    handler: async () => {
-      await addUser(p.qrLabel);
-      state.plan = p;
-      await addBot(MSG.confirmPlan(p.label));
-      step_options();
-    },
-  })));
+  showQR([
+    { label: `標準 ${formatYen(PLAN_MONTHLY.standard)}/月（税抜）`, handler: () => selectPlan('standard') },
+    { label: `ステージング ${formatYen(PLAN_MONTHLY.staging)}/月（税抜）`, handler: () => selectPlan('staging') },
+  ]);
+}
+
+async function selectPlan(plan) {
+  const qrLabel = plan === 'standard'
+    ? `標準 ${formatYen(PLAN_MONTHLY.standard)}/月（税抜）`
+    : `ステージング ${formatYen(PLAN_MONTHLY.staging)}/月（税抜）`;
+  await addUser(qrLabel);
+  state.plan = plan;
+  await addBot(MSG.confirmPlan(plan));
+  step_options();
 }
 
 async function step_options() {
@@ -512,13 +669,13 @@ async function step_options() {
 
 function optQRLabel(o) {
   const parts = [];
-  if (o.initialAmount) parts.push(`¥${(o.initialAmount / 1000)}k`);
-  if (o.monthlyAmount) parts.push(`¥${o.monthlyAmount.toLocaleString()}/月`);
-  return `${o.label} ${parts.join('+')}`.substring(0, 20);
+  if (o.initialAmount) parts.push(`初期${taxIncl(o.initialAmount)}`);
+  if (o.monthlyAmount) parts.push(`月${taxIncl(o.monthlyAmount)}`);
+  return `${o.label}`;
 }
 
 function showOptionBtns() {
-  const remaining = OPTIONS.filter(o => !selectedOptions.includes(o.key));
+  const remaining = AVAILABLE_OPTIONS.filter(o => !selectedOptions.includes(o.key));
   const btns = remaining.map(o => ({
     label: optQRLabel(o),
     handler: async () => {
@@ -539,22 +696,9 @@ function showOptionBtns() {
 
 async function step_summary() {
   setPhase('Phase 0: 規約同意・お見積もり');
-  const c = state.contract;
-  const p = state.plan;
-  let initialTotal = c.amount;
-  let monthlyTotal = p.monthly;
-  let optLines = '';
-  for (const k of selectedOptions) {
-    const o = OPTIONS.find(x => x.key === k);
-    if (o) {
-      initialTotal += o.initialAmount;
-      monthlyTotal += o.monthlyAmount;
-      optLines += `\n  ${o.label}：初期 ¥${o.initialAmount.toLocaleString()} / 月額 ¥${o.monthlyAmount.toLocaleString()}`;
-    }
-  }
-  await addBot(MSG.summary(c.label, c.amount, p.label, optLines, initialTotal, monthlyTotal));
-  await addBot(MSG.termsLinks);
-  await addBot(MSG.termsConfirm);
+  await addBot(MSG.orderSummary(state.contractType, state.plan, selectedOptions));
+  await addBot(MSG.termsConfirmation);
+  await addBot(MSG.termsAgreePrompt);
   showQR([
     { label: '同意してお支払いへ', handler: step_checkout },
     { label: 'やり直す', action: true, handler: resetFlow },
@@ -564,7 +708,7 @@ async function step_summary() {
 async function step_checkout() {
   await addUser('同意してお支払いへ');
   setPhase('Phase 0: 決済');
-  await addBot(MSG.checkout);
+  await addBot(MSG.checkoutLink);
   showQR([{ label: '決済完了（テスト用に次へ）', action: true, handler: step_paymentDone }]);
 }
 
@@ -575,10 +719,10 @@ async function step_paymentDone() {
   phase1(0);
 }
 
-// ── Phase 1: 共通質問 ──
+// ── Phase 1: Common Questions ──
 
 async function phase1(idx) {
-  if (idx >= HEARING_QUESTIONS.length) return phase1_summary();
+  if (idx >= HEARING_QUESTIONS.length) return phase2_blockSelection();
   const q = HEARING_QUESTIONS[idx];
   const total = HEARING_QUESTIONS.length;
   setPhase(`Phase 1: 共通質問 ${idx + 1}/${total}`);
@@ -591,77 +735,83 @@ async function phase1(idx) {
     q.quickReplies.forEach(qr => {
       btns.push({ label: qr, handler: async () => {
         await addUser(qr);
-        await addBot(MSG.hearingConfirm(q.label, qr));
+        await addBot(MSG.hearingConfirmAnswer(q.label, qr));
         phase1(idx + 1);
       }});
     });
     if (dummy) {
       btns.push({ label: `${dummy}（ダミー）`, handler: async () => {
         await addUser(dummy);
-        await addBot(MSG.hearingConfirm(q.label, dummy));
+        await addBot(MSG.hearingConfirmAnswer(q.label, dummy));
         phase1(idx + 1);
       }});
     }
   } else {
     btns.push({ label: `${dummy}（ダミー回答）`, handler: async () => {
       await addUser(dummy);
-      await addBot(MSG.hearingConfirm(q.label, dummy));
+      await addBot(MSG.hearingConfirmAnswer(q.label, dummy));
       phase1(idx + 1);
     }});
   }
   if (idx > 0) {
-    btns.push({ label: '← 戻る', handler: async () => { await addUser('戻る'); phase1(idx - 1); } });
+    btns.push({ label: '← 戻る', action: true, handler: async () => { await addUser('戻る'); phase1(idx - 1); } });
   }
   showQR(btns);
 }
 
-async function phase1_summary() {
-  setPhase('Phase 1: ヒアリング内容確認');
-  await addBot(MSG.hearingSummary(DUMMY_ANSWERS));
-  showQR([
-    { label: 'OK', handler: async () => { await addUser('OK'); phase2(); } },
-    { label: 'やり直す', handler: async () => { await addUser('やり直す'); await addBot(MSG.hearingRedo); phase1(0); } },
-    { label: '← 戻る', handler: async () => { await addUser('戻る'); phase1(HEARING_QUESTIONS.length - 1); } },
-  ]);
-}
+// ── Phase 2: Block Selection ──
 
-// ── Phase 2: ブロック選択 ──
-
-async function phase2() {
+async function phase2_blockSelection() {
   setPhase('Phase 2: ブロック選択');
-  selectedBlocks = [];
-  await addBot(MSG.selectBlocks);
+  selectedBlockKeys = [];
+  blockAnswers = {};
+  await addBot(MSG.blockSelectionIntro);
   showBlockBtns();
 }
 
 function showBlockBtns() {
-  const remaining = CONTENT_BLOCKS.filter(b => !selectedBlocks.includes(b.key));
+  const remaining = CONTENT_BLOCKS.filter(b => !selectedBlockKeys.includes(b.key));
   const btns = [];
 
-  if (selectedBlocks.length > 0) {
-    btns.push({ label: '決定', action: true, handler: async () => { await addUser('決定'); phase3(0); } });
+  if (selectedBlockKeys.length > 0) {
+    btns.push({ label: '決定', action: true, handler: async () => {
+      await addUser('決定');
+      phase3_blockQuestions(0);
+    }});
   }
 
   remaining.forEach(b => {
     btns.push({ label: b.label, handler: async () => {
-      selectedBlocks.push(b.key);
+      selectedBlockKeys.push(b.key);
       await addUser(b.label);
       await addBot(MSG.blockAdded(b.label));
+      const labels = selectedBlockKeys.map(k => CONTENT_BLOCKS.find(x => x.key === k)?.label || k);
+      await addBot(MSG.blockSelectionStatus(labels));
       showBlockBtns();
     }});
   });
 
-  if (selectedBlocks.length === 0) {
+  if (selectedBlockKeys.length === 0) {
     btns.push({ label: 'おまかせ', action: true, handler: async () => {
       await addUser('おまかせ');
-      selectedBlocks = [...OMAKASE_BLOCKS];
-      const names = OMAKASE_BLOCKS.map(k => CONTENT_BLOCKS.find(b => b.key === k).label).join('、');
-      await addBot(MSG.blockOmakase(names));
-      phase3(0);
+      // Use industry-based preset (detected from dummy: 飲食)
+      const presetKeys = INDUSTRY_PRESETS['飲食'] || INDUSTRY_PRESETS['その他'];
+      selectedBlockKeys = [...presetKeys];
+      const labels = presetKeys.map(k => CONTENT_BLOCKS.find(b => b.key === k)?.label || k);
+      await addBot(MSG.blockPresetConfirm(labels));
+      showQR([
+        { label: 'OK', handler: async () => { await addUser('OK'); phase3_blockQuestions(0); } },
+        { label: '選び直す', action: true, handler: async () => {
+          await addUser('選び直す');
+          selectedBlockKeys = [];
+          await addBot(MSG.blockBackToSelection);
+          showBlockBtns();
+        }},
+      ]);
     }});
     btns.push({ label: '決定', action: true, handler: async () => {
       await addUser('決定');
-      await addBot(MSG.blockEmpty);
+      await addBot('1つ以上のセクションを選んでください。');
       showBlockBtns();
     }});
   }
@@ -669,14 +819,18 @@ function showBlockBtns() {
   showQR(btns);
 }
 
-// ── Phase 3: ブロック別追加質問 ──
+// ── Phase 3: Per-block Questions ──
 
-async function phase3(idx) {
-  if (idx >= selectedBlocks.length) return hearingDone();
-  const key = selectedBlocks[idx];
+async function phase3_blockQuestions(idx) {
+  if (idx >= selectedBlockKeys.length) return phase4_confirmation();
+  if (idx === 0) {
+    setPhase('Phase 3: ブロック別質問');
+    await addBot(MSG.blockQuestionsIntro(selectedBlockKeys.length));
+  }
+  const key = selectedBlockKeys[idx];
   const block = CONTENT_BLOCKS.find(b => b.key === key);
-  if (!block) { phase3(idx + 1); return; }
-  setPhase(`Phase 3: ${block.label} ${idx + 1}/${selectedBlocks.length}`);
+  if (!block) { phase3_blockQuestions(idx + 1); return; }
+  setPhase(`Phase 3: ${block.label} ${idx + 1}/${selectedBlockKeys.length}`);
   await addBot(`（${block.label}）${block.q}`);
 
   const btns = [];
@@ -684,32 +838,54 @@ async function phase3(idx) {
     block.quickReplies.forEach(qr => {
       btns.push({ label: qr, handler: async () => {
         await addUser(qr);
-        await addBot(MSG.blockAnswer);
-        phase3(idx + 1);
+        blockAnswers[key] = qr;
+        await addBot(MSG.blockQuestionConfirm(block.label, qr));
+        phase3_blockQuestions(idx + 1);
       }});
     });
   }
-  btns.push({ label: `${block.dummy.substring(0, 18)}…（ダミー）`, handler: async () => {
+  const dummyLabel = block.dummy.length > 18 ? block.dummy.substring(0, 18) + '…' : block.dummy;
+  btns.push({ label: `${dummyLabel}（ダミー）`, handler: async () => {
     await addUser(block.dummy);
-    await addBot(MSG.blockAnswer);
-    phase3(idx + 1);
+    blockAnswers[key] = block.dummy;
+    await addBot(MSG.blockQuestionConfirm(block.label, block.dummy));
+    phase3_blockQuestions(idx + 1);
   }});
   showQR(btns);
 }
 
-async function hearingDone() {
-  setPhase('ヒアリング完了');
-  const blockNames = selectedBlocks.map(k => CONTENT_BLOCKS.find(b => b.key === k)?.label || k).join('\n  ・');
-  await addBot(MSG.hearingComplete(blockNames));
-  showQR([{ label: 'LP完成通知をシミュレート', action: true, handler: lpComplete }]);
+// ── Phase 4: Confirmation ──
+
+async function phase4_confirmation() {
+  setPhase('Phase 4: ヒアリング内容確認');
+  await addBot(MSG.hearingSummary(DUMMY_ANSWERS, selectedBlockKeys, blockAnswers));
+  showQR([
+    { label: 'OK', handler: async () => {
+      await addUser('OK');
+      const deadline = getDeadline();
+      await addBot(MSG.hearingAgreed(deadline));
+      showQR([{ label: 'LP完成通知をシミュレート', action: true, handler: lpComplete }]);
+    }},
+    { label: 'やり直す', action: true, handler: async () => {
+      await addUser('やり直す');
+      await addBot(MSG.hearingRestart);
+      phase1(0);
+    }},
+  ]);
 }
 
-// ── LP完成通知 → クライアント確認 ──
+function getDeadline() {
+  const d = new Date();
+  d.setDate(d.getDate() + 7);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
+// ── LP Complete → Client Review ──
 
 async function lpComplete() {
   await addUser('（LP完成通知）');
   setPhase('LP完成 → クライアント確認');
-  await addBot(MSG.lpComplete);
+  await addBot(MSG.lpCompleteForReview('https://trattoria-bella-lp.vercel.app'));
   showQR([
     { label: 'この内容でリリースする', handler: releaseLP },
     { label: '修正する', handler: revisionFlow },
@@ -719,16 +895,16 @@ async function lpComplete() {
 async function releaseLP() {
   await addUser('この内容でリリースする');
   setPhase('リリース → スタッフ確認');
-  await addBot(MSG.releaseConfirm);
+  await addBot(MSG.releaseStaffReview);
   showQR([
     { label: '公開完了をシミュレート', action: true, handler: async () => {
-      await addBot(MSG.maintenanceStart);
+      await addBot(MSG.lpPublished('https://trattoria-bella-lp.vercel.app'));
       showQR([{ label: 'フローを最初からやり直す', action: true, handler: resetFlow }]);
     }},
   ]);
 }
 
-// ── 修正フロー（バッチ処理） ──
+// ── Revision (Batch) ──
 
 async function revisionFlow() {
   await addUser('修正する');
@@ -740,7 +916,6 @@ async function revisionFlow() {
 function showRevisionBtns() {
   const nextIdx = batchItems.length;
   if (nextIdx >= DUMMY_REVISIONS.length) {
-    // ダミー修正を使い切った
     showQR([
       { label: '以上', action: true, handler: executeBatch },
       { label: 'クリア', action: true, handler: clearBatch },
@@ -767,11 +942,13 @@ function showRevisionBtns() {
 
 async function executeBatch() {
   await addUser('以上');
-  await addBot(MSG.batchAccept(batchItems.length));
+  const persona = state.persona?.key || 'gen';
+  const lines = PERSONA_LINES[persona];
+  await addBot(MSG.batchAccept(lines.accept, batchItems.length));
   showQR([{
     label: '修正完了をシミュレート', action: true,
     handler: async () => {
-      await addBot(MSG.batchDone(batchItems.length));
+      await addBot(MSG.batchCompleteStandard(lines.complete, batchItems.length));
       showQR([
         { label: 'LP確認画面へ', action: true, handler: lpComplete },
         { label: 'フローを最初からやり直す', action: true, handler: resetFlow },
@@ -793,7 +970,8 @@ function resetFlow() {
   chat.innerHTML = '';
   clearQR();
   selectedOptions = [];
-  selectedBlocks = [];
+  selectedBlockKeys = [];
+  blockAnswers = {};
   batchItems = [];
   state = {};
   step_welcome();
